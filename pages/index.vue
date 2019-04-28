@@ -10,16 +10,21 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="post in posts"
-          >
+      <tr v-for="post in posts">
         <td>{{post.id}}</td>
         <td>{{post.title}}</td>
         <td>{{post.body}}</td>
         <td>
           <nuxt-link
             :to="{name: 'posts-id', params: {id: post.id}}"
-            :key="post.id">
+            :key="'view-post' + post.id">
             View
+          </nuxt-link>
+
+          <nuxt-link
+            :to="{name: 'posts-edit-id', params: {id: post.id}}"
+            :key="'edit-post'+ post.id">
+            Edit
           </nuxt-link>
         </td>
       </tr>
