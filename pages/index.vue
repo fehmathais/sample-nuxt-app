@@ -26,6 +26,10 @@
             :key="'edit-post'+ post.id">
             Edit
           </nuxt-link>
+
+          <a href="#" @click="remove(post.id)">
+            Delete
+          </a>
         </td>
       </tr>
       </tbody>
@@ -34,6 +38,7 @@
 </template>
 
 <script>
+  import _ from 'lodash'
   import axios from 'axios'
 
   export default {
@@ -47,6 +52,18 @@
         .then(response => {
           this.posts = response.data
         })
+    },
+    methods: {
+      remove(id) {
+        axios.delete(`https://jsonplaceholder.typicode.com/posts/${id}`)
+          .then(response => {
+            if (response.status === 200) {
+              this.posts = _.remove(this.posts, function(element) {
+                return element.id !== id;
+              })
+            }
+          });
+      }
     }
   }
 </script>
